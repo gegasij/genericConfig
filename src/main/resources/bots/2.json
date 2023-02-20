@@ -1,0 +1,91 @@
+{
+  "botToken": "1525490187:AAHvLa_NgjVAZPzHPUmFCOEYaakwN7Qn_IE",
+  "answerMessage": [
+    {
+      "command": "/start",
+      "isPublic": true,
+      "text": "Привет! Как насчет крутого подарка вышему партнеру который вы сможете приготовить прямо сейчас? \n ",
+      "menuButtons": [
+        {
+          "text": "Интересно!",
+          "command": "/step2"
+        }
+      ]
+    },
+    {
+      "command": "/step2",
+      "isPublic": true,
+      "text": "<strong>Что такое MylovelyBot и как он работает?</strong>\nВсе происходит по следующему сценарию \n1. Вы aктивируете бота\n2. Настраиваете и заполняете его с нашей помощью\n4. Дарите своему партнеру\n5. Получаете нескончаемое умилиние и благодарность от вашей второй половинки",
+      "menuButtons": [
+        {
+          "text": "Какие я получу преимущества?",
+          "command": "/step3"
+        }
+      ]
+    },
+    {
+      "command": "/step3",
+      "isPublic": true,
+      "text": "\uD83D\uDCCDИндивидульность\nВы можете быть уверены что вашему партнеру никто и никогда не дарил таких подарков\n\n \uD83D\uDCCDСтоимость\nПокупка бота стоит намного меньше чем большинство подарков которые можно купить своей второй половинке, а эффект намного больше!\n\n\uD83D\uDCCDКонтроль\nВы сами настраиваете бота, решаете как часто и какие сообщения он будет отправлять",
+      "menuButtons": [
+        {
+          "text": "Хорошо",
+          "command": "/step4"
+        }
+      ]
+    },
+    {
+      "command": "/step4",
+      "isPublic": true,
+      "text": "Сразу после приобритения бота, вы получите пароль для доступа к @myLoveely_bot и сможете подготовить подарок для своей второй половинки",
+      "menuButtons": [
+        {
+          "text": "Я покупаю!",
+          "command": "/firstInvoice"
+        },
+        {
+          "text": "Не понятно",
+          "command": "/step5"
+        }
+      ]
+    },
+    {
+      "command": "/step5",
+      "isPublic": true,
+      "text": "Нажмите на кнопку \"Видео\" ниже, чтобы посмотреть ролик о том как пользоваться myLovelyBot\n\nОстались вопросы?\n можете знаписать на почту mylovelybot.contact@gmail.com\n или напрямую в telegram @ireut",
+      "menuButtons": [
+        {
+          "text": "Видео",
+          "command": "/firstInvoice",
+          "link": "https://drive.google.com/file/d/1hJKioRBh1F22KdYvKRn2N0rYJw908BJF/view?usp=sharing"
+        },
+        {
+          "text": "Купить",
+          "command": "/firstInvoice"
+        },
+        {
+          "text": "Прочитать еще раз",
+          "command": "/start"
+        }
+      ]
+    }
+  ],
+  "payment": {
+    "providerToken": "350862534:LIVE:NDJlMDUzYzZhNzEx",
+    "invoice": [
+      {
+        "invoiceCommand": "/firstInvoice",
+        "title": "доступ к боту MyLovelyBot",
+        "description": "Сразу после покупки вы поличите пароль для бота @myLoveely_bot",
+        "payload": "payload",
+        "currency": "USD",
+        "price": [
+          {
+            "text": "bot",
+            "amount": 1300
+          }
+        ]
+      }
+    ]
+  }
+}

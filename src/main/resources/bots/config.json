@@ -1,0 +1,164 @@
+{
+  "botToken": "1886697492:AAGZWoW5hjAalqk3HtBfrfrWY_ItKvG-Ddc",
+  "answerMessage": [
+    {
+      "command": "/start",
+      "text": "Я помогу тебе с проблемами, о которых не принято говорить. Наша переписка полностью конфиденциальна, можешь говорить так, как чувствуешь и как есть на самом деле. От этого напрямую зависит результат нашей работы \n Расскажи, что наиболее близко к твоему запросу:",
+      "menuButtons": [
+        {
+          "text": "Выгорание",
+          "command": "/step2",
+          "link": null
+        },
+        {
+          "text": "Деньги",
+          "command": "/step2",
+          "link": null
+        },
+        {
+          "text": "Личные границы",
+          "command": "/step2",
+          "link": null
+        },
+        {
+          "text": "Уверенность",
+          "command": "/step2",
+          "link": null
+        },
+        {
+          "text": "Ничего не подходит",
+          "command": "/step3",
+          "link": null
+        }
+      ],
+      "isPublic": true
+    },
+    {
+      "command": "/step2",
+      "text": "Ок, хорошая новость в том, что все это можно изменить",
+      "menuButtons": [
+        {
+          "text": "Хорошо",
+          "command": "/step3",
+          "link": null
+        }
+      ],
+      "isPublic": true
+    },
+    {
+      "command": "/step3",
+      "text": "Распиши как можно детальнее свою проблему. Желательно в голосовом и во всех деталях",
+      "menuButtons": [
+        {
+          "text": "Расписал",
+          "command": "/step4",
+          "link": null
+        }
+      ],
+      "isPublic": true
+    },
+    {
+      "command": "/step4",
+      "text": "Я разберусь с твоей проблемой и подготовлюсь к нашему разговору \n Когда будет удобно созвониться чтобы всё обсудить",
+      "menuButtons": [
+        {
+          "text": "типа кнопка времени",
+          "command": "/payment",
+          "link": null
+        },
+        {
+          "text": "типа кнопка времени2",
+          "command": "/payment",
+          "link": null
+        }
+      ],
+      "isPublic": true
+    },
+    {
+      "command": "/payment",
+      "text": "Оплата",
+      "menuButtons": [
+        {
+          "text": "Оплата",
+          "command": "/firstInvoice",
+          "link": "https://zoo-sex.cc/163-kon-molotit-tolstjaka-v-duplo.html"
+        },
+        {
+          "text": "Купить",
+          "command": "/firstInvoice",
+          "link": null
+        },
+        {
+          "text": "Прочитать еще раз",
+          "command": "/start",
+          "link": null
+        }
+      ],
+      "isPublic": true
+    }
+  ],
+  "payment": {
+    "providerToken": "350862534:LIVE:NDJlMDUzYzZhNzEx",
+    "invoice": [
+      {
+        "invoiceCommand": "/firstInvoice",
+        "title": "доступ к боту MyLovelyBot",
+        "description": "Сразу после покупки вы поличите пароль для бота @myLoveely_bot",
+        "payload": "payload",
+        "currency": "USD",
+        "price": [
+          {
+            "text": "bot",
+            "amount": 1300
+          }
+        ]
+      }
+    ]
+  },
+  "admin": {
+    "chatId": 321,
+    "tgUsername": "321L",
+    "slots": [
+      {
+        "startDate": [
+          2023,
+          2,
+          17,
+          19,
+          27,
+          46,
+          3750700
+        ],
+        "endDate": [
+          2023,
+          2,
+          17,
+          19,
+          27,
+          46,
+          3750700
+        ]
+      },
+      {
+        "startDate": [
+          2023,
+          2,
+          17,
+          19,
+          27,
+          46,
+          3750700
+        ],
+        "endDate": [
+          2023,
+          2,
+          17,
+          19,
+          27,
+          46,
+          3750700
+        ]
+      }
+    ]
+  }
+}
