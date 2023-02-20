@@ -11,6 +11,6 @@ public class BotFile {
     private String botToken;
     private List<AnswerMessage> answerMessage;
     private Payment payment;
-    private ChatFunction chatFunction;
+    private List<ChatFunction> chatFunction;
     private Admin admin;
 }

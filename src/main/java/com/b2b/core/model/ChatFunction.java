@@ -1,5 +1,12 @@
 package com.b2b.core.model;
 
-public interface ChatFunction {
-    String getFunctionName();
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+
+public class ChatFunction {
+    private String name;
+    private String successCommand;
 }

@@ -2,6 +2,7 @@ package com.b2b.core.service;
 
 import com.b2b.core.model.BotFile;
 import com.b2b.core.model.NewUpdateDto;
+import com.b2b.core.slot.ShowTimeSlotsFunction;
 import com.b2b.core.util.BotUtil;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.Update;
@@ -13,12 +14,16 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UpdateResolver {
     private final BotFileService botFileService;
+    private final ShowTimeSlotsFunction showTimeSlotsFunction;
 
     public void resolveUpdate(NewUpdateDto newUpdateDto) {
         Update update = newUpdateDto.getUpdate();
         BaseRequest<?, ?> request = null;
-        if (BotUtil.getCommand(update) != null) {
-            request=botFileService.resolveMessage(newUpdateDto.getBot().getBotFile(), update);
+        if (BotUtil.getParameter1(update) != null) {
+            if (BotUtil.getParameter1(update).equals(ShowTimeSlotsFunction.FUNCTION_NAME)) {
+                showTimeSlotsFunction.getTimeslots(newUpdateDto);
+            } else
+                request = botFileService.resolveMessage(newUpdateDto.getBot().getBotFile(), BotUtil.getParameter1(update), BotUtil.getChatId(update));
         } else if (update.preCheckoutQuery() != null) {
             request = botFileService.resolvePreCheckoutQuery(update);
         }

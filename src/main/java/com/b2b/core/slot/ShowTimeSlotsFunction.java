@@ -3,25 +3,27 @@ package com.b2b.core.slot;
 
 import com.b2b.core.model.ChatFunction;
 import com.b2b.core.model.NewUpdateDto;
+import com.b2b.core.service.BotFileService;
 import com.b2b.core.service.KeyboardService;
 import com.b2b.core.util.BotUtil;
 import com.b2b.core.util.DateUtil;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.request.SendMessage;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ShowTimeSlotsFunction implements ChatFunction {
-    private static final String FUNCTION_NAME = "/slots";
-
-    @Override
-    public String getFunctionName() {
-        return FUNCTION_NAME;
-    }
+@Component
+@RequiredArgsConstructor
+public class ShowTimeSlotsFunction {
+    private final BotFileService botFileService;
+    public static final String FUNCTION_NAME = "/slots";
 
     public void getTimeslots(NewUpdateDto newUpdateDto) {
         String parameter2 = BotUtil.getParameter2(newUpdateDto.getUpdate());
@@ -35,7 +37,14 @@ public class ShowTimeSlotsFunction implements ChatFunction {
         }
         LocalDateTime localDateTime = DateUtil.isLocalDateTime(parameter2);
         if (localDateTime != null) {
-            sendMessage = withDateTime(newUpdateDto, localDateTime);
+            SendMessage sendMessage1 = withDateTime(newUpdateDto, localDateTime);
+            newUpdateDto.getBot().getTelegramBot().execute(sendMessage1);
+            newUpdateDto.getBot().getBotFile().getChatFunction().stream()
+                    .filter(it -> it.getName().equals(FUNCTION_NAME))
+                    .findFirst()
+                    .map(ChatFunction::getSuccessCommand)
+                    .map(it -> botFileService.resolveMessage(newUpdateDto.getBot().getBotFile(), it, BotUtil.getChatId(newUpdateDto.getUpdate())))
+                    .ifPresent(it -> newUpdateDto.getBot().getTelegramBot().execute(it));
         }
         if (sendMessage != null) {
             newUpdateDto.getBot().getTelegramBot().execute(sendMessage);
@@ -51,7 +60,7 @@ public class ShowTimeSlotsFunction implements ChatFunction {
                 .filter(it -> it.getStartDate().equals(localDateTime))
                 .findAny()
                 .stream()
-                .peek(it -> it.setUserData(BotUtil.getTelegramUsername(newUpdateDto.getUpdate())))
+                .peek(it -> it.setUserData(UserData.builder().username(BotUtil.getTelegramUsername(newUpdateDto.getUpdate())).build()))
                 .map(it -> "Вы записались на сеанс %s в %s.".formatted(localDateTime.format(DateUtil.DATE_FORMATTER), localDateTime.format(DateUtil.TIME_FORMATTER)))
                 .findAny()
                 .orElse(null);
@@ -71,7 +80,7 @@ public class ShowTimeSlotsFunction implements ChatFunction {
 
         List<List<InlineKeyboardButton>> collect = availableSlots.stream().map(it ->
                         new InlineKeyboardButton(SlotService.getSlotsTimeButtons(it))
-                                .callbackData(it.getStartDate().toString()))
+                                .callbackData(FUNCTION_NAME+" "+it.getStartDate().toString()))
                 .collect(Collectors.collectingAndThen(Collectors.toList(), KeyboardService::splitByButtons));
 
         InlineKeyboardMarkup keyboardMarkup = KeyboardService.getInlineKeyboard(collect);
@@ -88,7 +97,7 @@ public class ShowTimeSlotsFunction implements ChatFunction {
                 .toList();
 
         List<List<InlineKeyboardButton>> collect = SlotService.getSlotsDateButtons(availableSlots).stream()
-                .map(it -> new InlineKeyboardButton(it).callbackData(it))
+                .map(it -> new InlineKeyboardButton(it).callbackData(FUNCTION_NAME+" "+it))
                 .collect(Collectors.collectingAndThen(Collectors.toList(), KeyboardService::splitByButtons));
 
         InlineKeyboardMarkup keyboardMarkup = KeyboardService.getInlineKeyboard(collect);

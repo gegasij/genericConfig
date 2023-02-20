@@ -43,6 +43,17 @@ public class BotUtil {
         return null;
     }
 
+    public static String getParameter1(Update update) {
+        String text = getCommand(update);
+        if (text != null) {
+            String[] split = text.split(" ");
+            if (split.length >= 1) {
+                return split[0];
+            }
+            return null;
+        }
+        return null;
+    }
     public static String getParameter2(Update update) {
         String text = getCommand(update);
         if (text != null) {

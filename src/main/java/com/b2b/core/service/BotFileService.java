@@ -2,7 +2,6 @@ package com.b2b.core.service;
 
 import com.b2b.core.model.AnswerMessage;
 import com.b2b.core.model.BotFile;
-import com.b2b.core.util.BotUtil;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.InlineKeyboardButton;
 import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
@@ -22,23 +21,20 @@ import java.util.List;
 public class BotFileService {
     private final CommandResolver commandResolver;
 
-    public BaseRequest<?, ?> resolveMessage(BotFile from, Update update) {
-        String command = BotUtil.getCommand(update);
-        if (command != null) {
-            Object o = commandResolver.resolveCommand(from, command);
-            if (o instanceof AnswerMessage answerMessage) {
+    public BaseRequest<?, ?> resolveMessage(BotFile from, String command, Long chatId) {
+        Object o = commandResolver.resolveCommand(from, command);
+        if (o instanceof AnswerMessage answerMessage) {
 
-                SendMessage sendMessage = TelegramBotAdapter.adaptMessage(answerMessage, BotUtil.getChatId(update));
+            SendMessage sendMessage = TelegramBotAdapter.adaptMessage(answerMessage, chatId);
 
-                List<InlineKeyboardButton> inlineKeyboardButtons = TelegramBotAdapter.getInlineKeyboardButtons(answerMessage);
-                List<KeyboardButton> publicKeyboardButtons = TelegramBotAdapter.getPublicKeyboardButtons(from.getAnswerMessage());
-                if (!inlineKeyboardButtons.isEmpty()) {
-                    addKeyboard(sendMessage, inlineKeyboardButtons);
-                } else if (!publicKeyboardButtons.isEmpty()) {
-                    sendMessage.replyMarkup(new ReplyKeyboardMarkup(publicKeyboardButtons.toArray(new KeyboardButton[0])));
-                }
-                return sendMessage;
+            List<InlineKeyboardButton> inlineKeyboardButtons = TelegramBotAdapter.getInlineKeyboardButtons(answerMessage);
+            List<KeyboardButton> publicKeyboardButtons = TelegramBotAdapter.getPublicKeyboardButtons(from.getAnswerMessage());
+            if (!inlineKeyboardButtons.isEmpty()) {
+                addKeyboard(sendMessage, inlineKeyboardButtons);
+            } else if (!publicKeyboardButtons.isEmpty()) {
+                sendMessage.replyMarkup(new ReplyKeyboardMarkup(publicKeyboardButtons.toArray(new KeyboardButton[0])));
             }
+            return sendMessage;
         }
         return null;
     }
