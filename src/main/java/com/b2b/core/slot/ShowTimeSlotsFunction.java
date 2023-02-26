@@ -101,7 +101,7 @@ public class ShowTimeSlotsFunction {
                 .collect(Collectors.collectingAndThen(Collectors.toList(), KeyboardService::splitByButtons));
 
         InlineKeyboardMarkup keyboardMarkup = KeyboardService.getInlineKeyboard(collect);
-        SendMessage sendMessage = new SendMessage(BotUtil.getChatId(newUpdateDto.getUpdate()), "Выберите время");
+        SendMessage sendMessage = new SendMessage(BotUtil.getChatId(newUpdateDto.getUpdate()), "Я разберусь с твоей проблемой и подготовлюсь к нашему разговору \n Когда будет удобно созвониться чтобы всё обсудить?");
         return sendMessage.replyMarkup(keyboardMarkup);
     }
 }
